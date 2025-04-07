@@ -66,5 +66,37 @@ title, year = res.fetchone() # Obtener el título y año de la película con may
 # Mostrar el resultado
 print(f'The highest scoring Monty Python movie is {title!r}, released in {year}')
 
+# Eliminar una fila
+new_cur.execute("DELETE FROM movie WHERE title = 'Monty Python and the Holy Grail'")
+new_con.commit()
+
+# Eliminar todas las filas
+new_cur.execute("DELETE FROM movie")
+new_con.commit()
+
+# Verificar si los datos fueron eliminados
+new_cur.execute("SELECT * FROM movie")
+filas = new_cur.fetchall()
+
+if not filas:
+    print("Filas eliminadas.")
+else:
+    print("Aún hay filas en la tabla:", filas)
+
+
+# Borrar la tabla 'movie'
+new_cur.execute("DROP TABLE IF EXISTS movie")
+new_con.commit()
+
+
+# Verificar si la tabla existe
+new_cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='movie'")
+resultado = new_cur.fetchone()
+
+if resultado is None:
+    print("La tabla 'movie' ha sido borrada.")
+else:
+    print("La tabla 'movie' todavía existe.")
+
 # Cerrar conexión
 new_con.close()
