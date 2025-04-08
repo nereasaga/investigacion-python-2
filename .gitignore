@@ -1,0 +1,68 @@
+
+# Entorno virtual
+Env/
+venv/
+ENV/
+
+# Base de datos SQLite
+*.db
+*.db-journal
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Logs
+*.log
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# VS Code
+.vscode/
+*.code-workspace
+.history
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+.env
+.env.local
+.env.*.local
+
+# Archivos temporales
+*.swp
+*.swo
+*~
+
+# IDE específicos
+.idea/
+*.sublime-workspace
+*.sublime-project
+
