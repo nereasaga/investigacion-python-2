@@ -6,7 +6,7 @@ def init_routes(app):
     # Ruta de inicio
     @app.route('/')
     def index():
-        return '<h1>Bienvenido a nuestra API de usuarios!</h1>'
+        return '<h1>Bienvenido a nuestra API de usuarios!</h1><p>Para ver la lista de usuarios, visita /users</p><p>Para ver un usuario en particular, visita /users/<id></p>'
 
     # Rutas para obtener todos los usuarios
     @app.route('/users')
