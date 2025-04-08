@@ -66,7 +66,7 @@ title, year = res.fetchone() # Obtener el título y año de la película con may
 # Mostrar el resultado
 print(f'The highest scoring Monty Python movie is {title!r}, released in {year}')
 
-# Eliminar una fila
+""" # Eliminar una fila
 new_cur.execute("DELETE FROM movie WHERE title = 'Monty Python and the Holy Grail'")
 new_con.commit()
 
@@ -99,4 +99,4 @@ else:
     print("La tabla 'movie' todavía existe.")
 
 # Cerrar conexión
-new_con.close()
+new_con.close() """
