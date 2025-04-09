@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Usuario{% endblock %}
+
+{% block content %}
+    <h1>Detalle del Usuario</h1>
+    <div class="user-details">
+        <p><strong>ID:</strong> {{ user.id }}</p>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+    
+    <div class="actions">
+        <a href="{{ url_for('list_users_view') }}" class="button">Volver a la lista</a>
+    </div>
+{% endblock %}

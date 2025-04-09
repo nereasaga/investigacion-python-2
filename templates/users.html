@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Usuarios{% endblock %}
+
+{% block content %}
+    <h1>Usuarios</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <a href="{{ url_for('view_user', user_id=user.id) }}">Ver</a>
+                    <button onclick="deleteUser({{ user.id }})">Eliminar</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Agregar Usuario</h2>
+    <form id="addUserForm" onsubmit="addUser(event)">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <script>
+        async function deleteUser(userId) {
+            if (confirm('¿Estás seguro de eliminar este usuario?')) {
+                const response = await fetch(`/users/${userId}`, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    location.reload();
+                }
+            }
+        }
+
+        async function addUser(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = {
+                username: form.username.value,
+                email: form.email.value,
+                password: form.password.value
+            };
+            
+            const response = await fetch('/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                location.reload();
+            }
+        }
+    </script>
+{% endblock %}

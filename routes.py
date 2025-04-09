@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, render_template, redirect, url_for
 from models import get_users, get_user_by_id, add_user, update_user, del_user, del_user_by_email  # Importa la función modular
 
 # Definir rutas
@@ -6,8 +6,26 @@ def init_routes(app):
     # Ruta de inicio
     @app.route('/')
     def index():
-        return '<h1>Bienvenido a nuestra API de usuarios!</h1><p>Para ver la lista de usuarios, visita /users</p><p>Para ver un usuario en particular, visita /users/<id></p>'
+        return render_template('index.html')
+    
+  # Vista de lista de usuarios
+    @app.route('/users/view')
+    def list_users_view():
+        users = get_users()
+        return render_template('users.html', users=users)
 
+    # Vista de usuario individual
+    @app.route('/users/view/<int:user_id>')
+    def view_user(user_id):
+        user = get_user_by_id(user_id)
+        if user:
+            return render_template('user_detail.html', user=user)
+        return redirect(url_for('list_users_view'))    
+    
+    
+# API REST con json como respuesta    
+    
+    
     # Rutas para obtener todos los usuarios
     @app.route('/users')
     def list_users():
