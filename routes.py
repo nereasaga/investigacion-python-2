@@ -1,13 +1,57 @@
-from flask import jsonify, request
-from models import get_users, get_user_by_id, add_user, update_user, del_user, del_user_by_email  # Importa la función modular
+from flask import jsonify, request, render_template, redirect, url_for, flash
+from flask_login import login_user, logout_user, login_required, current_user
+from models import get_user_by_email, get_users, get_user_by_id, add_user, update_user, del_user, del_user_by_email, get_user_by_username
 
 # Definir rutas
 def init_routes(app):
-    # Ruta de inicio
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        if request.method == 'POST':
+            email = request.form.get('email')
+            password = request.form.get('password')
+            user = get_user_by_email(email)
+            
+            if user and user.password == password:  # En producción usar hash
+                login_user(user)
+                return redirect(url_for('index'))
+            flash('Usuario o contraseña incorrectos')
+        return render_template('login.html')
+
+    @app.route('/logout')
+    @login_required
+    def logout():
+        logout_user()
+        return redirect(url_for('index'))
+
     @app.route('/')
     def index():
-        return '<h1>Bienvenido a nuestra API de usuarios!</h1><p>Para ver la lista de usuarios, visita /users</p><p>Para ver un usuario en particular, visita /users/<id></p>'
+        return render_template('index.html')
 
+    @app.route('/dashboard')
+    @login_required
+    def dashboard():
+        return render_template('dashboard.html')
+    
+  # Vista de lista de usuarios
+    @app.route('/users/view')
+    @login_required
+    def list_users_view():
+        users = get_users()
+        return render_template('users.html', users=users)
+
+    # Vista de usuario individual
+    @app.route('/users/view/<int:user_id>')
+    @login_required
+    def view_user(user_id):
+        user = get_user_by_id(user_id)
+        if user:
+            return render_template('user_detail.html', user=user)
+        return redirect(url_for('list_users_view'))    
+    
+    
+# API REST con json como respuesta    
+    
+    
     # Rutas para obtener todos los usuarios
     @app.route('/users')
     def list_users():
@@ -65,3 +109,7 @@ def init_routes(app):
         del_user_by_email(email)
         return jsonify({'message': 'Usuario eliminado exitosamente'})   
 
+    @app.route('/users/add', methods=['GET'])
+    @login_required
+    def add_user_view():
+        return render_template('add_user.html')

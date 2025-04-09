@@ -1,5 +1,6 @@
 # Importar bibliotecas
 import sqlite3
+from flask_login import UserMixin
 
 # Definir la tabla a la que conectar
 table_name = 'users.db'
@@ -19,14 +20,28 @@ def get_users():
     conn.close()
     return users
 
+class User(UserMixin):
+    def __init__(self, id, username, email, password):
+        self.id = id
+        self.username = username
+        self.email = email
+        self.password = password
+
 # Función para obtener un usuario por su ID
 def get_user_by_id(user_id):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users WHERE id = ?', (user_id,))
-    user = cursor.fetchone()
+    user_data = cursor.fetchone()
     conn.close()
-    return user
+    if user_data:
+        return User(
+            id=user_data['id'],
+            username=user_data['username'],
+            email=user_data['email'],
+            password=user_data['password']
+        )
+    return None
 
 # Función para obtener un usuario por su nombre de usuario
 def get_user_by_username(username):
@@ -42,9 +57,16 @@ def get_user_by_email(email):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
-    user = cursor.fetchone()
+    user_data = cursor.fetchone()
     conn.close()
-    return user
+    if user_data:
+        return User(
+            id=user_data['id'],
+            username=user_data['username'],
+            email=user_data['email'],
+            password=user_data['password']
+        )
+    return None
 
 # Función para agregar un nuevo usuario
 def add_user(username, email, password):
