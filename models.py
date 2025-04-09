@@ -57,9 +57,16 @@ def get_user_by_email(email):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
-    user = cursor.fetchone()
+    user_data = cursor.fetchone()
     conn.close()
-    return user
+    if user_data:
+        return User(
+            id=user_data['id'],
+            username=user_data['username'],
+            email=user_data['email'],
+            password=user_data['password']
+        )
+    return None
 
 # Función para agregar un nuevo usuario
 def add_user(username, email, password):

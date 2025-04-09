@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <div class="dashboard-content">
+        <h2>Bienvenido, {{ current_user.username }}</h2>
+        
+        <div class="dashboard-stats">
+            <h3>Resumen</h3>
+            <p>Desde aquí puedes gestionar los usuarios del sistema.</p>
+        </div>
+
+        <div class="dashboard-actions">
+            <h3>Acciones Rápidas</h3>
+            <ul>
+                <li><a href="{{ url_for('list_users_view') }}">Ver lista de usuarios</a></li>
+                <li><a href="{{ url_for('add_user_view') }}">Añadir nuevo usuario</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

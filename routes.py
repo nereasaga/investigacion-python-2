@@ -21,12 +21,16 @@ def init_routes(app):
     @login_required
     def logout():
         logout_user()
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
 
     @app.route('/')
-    @login_required
     def index():
         return render_template('index.html')
+
+    @app.route('/dashboard')
+    @login_required
+    def dashboard():
+        return render_template('dashboard.html')
     
   # Vista de lista de usuarios
     @app.route('/users/view')
@@ -105,3 +109,7 @@ def init_routes(app):
         del_user_by_email(email)
         return jsonify({'message': 'Usuario eliminado exitosamente'})   
 
+    @app.route('/users/add', methods=['GET'])
+    @login_required
+    def add_user_view():
+        return render_template('add_user.html')

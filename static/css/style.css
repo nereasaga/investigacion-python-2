@@ -75,8 +75,8 @@ button:hover {
     margin: 10px 0;
 }
 
-.actions {
-    margin-top: 20px;
+.actions-top {
+    margin-bottom: 20px;
 }
 
 .button {
@@ -90,6 +90,26 @@ button:hover {
 
 .button:hover {
     background-color: #45a049;
+}
+
+.button.secondary {
+    background-color: #6c757d;
+    margin-left: 10px;
+}
+
+.button.secondary:hover {
+    background-color: #5a6268;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.actions {
+    margin-top: 20px;
+    text-align: center;
 }
 
 .alert {

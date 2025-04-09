@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1>Usuarios</h1>
+    <div class="actions-top">
+        <a href="{{ url_for('add_user_view') }}" class="button">Añadir Nuevo Usuario</a>
+    </div>
     <table>
         <thead>
             <tr>
@@ -28,14 +31,6 @@
         </tbody>
     </table>
 
-    <h2>Agregar Usuario</h2>
-    <form id="addUserForm" onsubmit="addUser(event)">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Agregar</button>
-    </form>
-
     <script>
         async function deleteUser(userId) {
             if (confirm('¿Estás seguro de eliminar este usuario?')) {
@@ -45,28 +40,6 @@
                 if (response.ok) {
                     location.reload();
                 }
-            }
-        }
-
-        async function addUser(event) {
-            event.preventDefault();
-            const form = event.target;
-            const data = {
-                username: form.username.value,
-                email: form.email.value,
-                password: form.password.value
-            };
-            
-            const response = await fetch('/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                location.reload();
             }
         }
     </script>

@@ -17,5 +17,5 @@ def load_user(user_id):
 # Registrar rutas
 init_routes(app)  # Aquí se vinculan las rutas al proyecto
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
