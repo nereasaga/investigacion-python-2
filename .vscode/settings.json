@@ -1,10 +1,5 @@
 {
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "tutorial",
-            "database": "${workspaceFolder:SQLite3_inv}/tutorial.db"
-        }
-    ]
+    "html.validate.scripts": true,
+    "html.validate.styles": true,
+    "html.validate.DOCTYPE": false
 }

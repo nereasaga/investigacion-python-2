@@ -45,7 +45,6 @@ coverage.xml
 .hypothesis/
 
 # VS Code
-.vscode/
 *.code-workspace
 .history
 
@@ -65,4 +64,8 @@ Thumbs.db
 .idea/
 *.sublime-workspace
 *.sublime-project
+
+# Linting
+.pylintrc
+.vscode/
 
