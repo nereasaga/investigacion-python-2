@@ -1,6 +1,6 @@
 from flask import jsonify, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
-from models import get_user_by_email, get_users, get_user_by_id, add_user, update_user, del_user, del_user_by_email, get_user_by_username
+from models import get_user_by_email, get_users, get_user_by_id, add_user, update_user, del_user, del_user_by_email, get_user_by_username, get_profile_by_user_id, update_profile, get_all_movies
 
 # Definir rutas
 def init_routes(app):
@@ -27,10 +27,19 @@ def init_routes(app):
     def index():
         return render_template('index.html')
 
-    @app.route('/dashboard')
+    @app.route('/dashboard', methods=['GET', 'POST'])
     @login_required
     def dashboard():
-        return render_template('dashboard.html')
+        if request.method == 'POST':
+            bio = request.form.get('bio')
+            movie_id = request.form.get('movie_id')
+            update_profile(current_user.id, bio, movie_id)
+            flash('Perfil actualizado exitosamente')
+            return redirect(url_for('dashboard'))
+
+        profile = get_profile_by_user_id(current_user.id)
+        movies = get_all_movies()
+        return render_template('dashboard.html', profile=profile, movies=movies)
     
   # Vista de lista de usuarios
     @app.route('/users/view')
@@ -45,7 +54,8 @@ def init_routes(app):
     def view_user(user_id):
         user = get_user_by_id(user_id)
         if user:
-            return render_template('user_detail.html', user=user)
+            profile = get_profile_by_user_id(user_id)  # Obtener el perfil del usuario
+            return render_template('user_detail.html', user=user, profile=profile)
         return redirect(url_for('list_users_view'))    
     
     

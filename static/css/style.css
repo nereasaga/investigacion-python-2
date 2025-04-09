@@ -119,3 +119,56 @@ label {
     color: white;
     border-radius: 4px;
 }
+
+.profile-section {
+    max-width: 600px;
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+.profile-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.profile-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.current-profile {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.user-profile {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.user-profile h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.user-profile p {
+    margin: 10px 0;
+}
+
+.user-profile em {
+    color: #666;
+    font-style: italic;
+}

@@ -7,9 +7,37 @@
     <div class="dashboard-content">
         <h2>Bienvenido, {{ current_user.username }}</h2>
         
-        <div class="dashboard-stats">
-            <h3>Resumen</h3>
-            <p>Desde aquí puedes gestionar los usuarios del sistema.</p>
+        <div class="profile-section">
+            <h3>Tu Perfil</h3>
+            <form method="POST" class="profile-form">
+                <div class="form-group">
+                    <label for="bio">Biografía:</label>
+                    <textarea name="bio" id="bio" rows="4">{{ profile.bio if profile else '' }}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="movie_id">Película Favorita:</label>
+                    <select name="movie_id" id="movie_id">
+                        <option value="">Selecciona una película</option>
+                        {% for movie in movies %}
+                            <option value="{{ movie.id }}" 
+                                {% if profile and profile.movie_id == movie.id %}selected{% endif %}>
+                                {{ movie.title }} ({{ movie.year }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="button">Guardar Perfil</button>
+            </form>
+        </div>
+
+        <div class="current-profile">
+            {% if profile %}
+                <h3>Tu Perfil Actual</h3>
+                <p><strong>Biografía:</strong> {{ profile.bio }}</p>
+                <p><strong>Película Favorita:</strong> {{ profile.movie_title }}</p>
+            {% endif %}
         </div>
 
         <div class="dashboard-actions">

@@ -8,6 +8,18 @@
         <p><strong>ID:</strong> {{ user.id }}</p>
         <p><strong>Username:</strong> {{ user.username }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
+        
+        {% if profile %}
+        <div class="user-profile">
+            <h3>Perfil</h3>
+            <p><strong>Biografía:</strong> {{ profile.bio }}</p>
+            <p><strong>Película Favorita:</strong> {{ profile.movie_title }}</p>
+        </div>
+        {% else %}
+        <div class="user-profile">
+            <p><em>Este usuario aún no ha completado su perfil</em></p>
+        </div>
+        {% endif %}
     </div>
     
     <div class="actions">

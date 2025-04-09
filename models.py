@@ -114,3 +114,43 @@ def del_user_by_email(email):
     conn.commit()
     conn.close()
 
+def get_profile_by_user_id(user_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT profile.*, movie.title as movie_title 
+        FROM profile 
+        LEFT JOIN movie ON profile.movie_id = movie.id 
+        WHERE user_id = ?
+    ''', (user_id,))
+    profile = cursor.fetchone()
+    conn.close()
+    return profile
+
+def get_all_movies():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM movie ORDER BY title')
+    movies = cursor.fetchall()
+    conn.close()
+    return movies
+
+def update_profile(user_id, bio, movie_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    # Intentar actualizar primero
+    cursor.execute('''
+        UPDATE profile 
+        SET bio = ?, movie_id = ? 
+        WHERE user_id = ?
+    ''', (bio, movie_id, user_id))
+    
+    # Si no se actualizó ninguna fila, insertar nuevo perfil
+    if cursor.rowcount == 0:
+        cursor.execute('''
+            INSERT INTO profile (user_id, bio, movie_id)
+            VALUES (?, ?, ?)
+        ''', (user_id, bio, movie_id))
+    conn.commit()
+    conn.close()
+
