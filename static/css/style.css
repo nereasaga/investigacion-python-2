@@ -33,8 +33,15 @@ th {
 }
 
 form {
-    max-width: 400px;
-    margin: 20px 0;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form div {
+    margin-bottom: 15px;
 }
 
 input {
@@ -83,4 +90,12 @@ button:hover {
 
 .button:hover {
     background-color: #45a049;
+}
+
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
 }

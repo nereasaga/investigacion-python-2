@@ -7,7 +7,12 @@
 <body>
     <nav>
         <a href="{{ url_for('index') }}">Inicio</a>
-        <a href="{{ url_for('list_users_view') }}">Usuarios</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('list_users_view') }}">Usuarios</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
     </nav>
     <div class="content">
         {% block content %}{% endblock %}
