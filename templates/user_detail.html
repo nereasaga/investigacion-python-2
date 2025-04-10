@@ -12,6 +12,11 @@
         {% if profile %}
         <div class="user-profile">
             <h3>Perfil</h3>
+            {% if profile.avatar_path %}
+            <div class="profile-avatar">
+                <img src="{{ url_for('static', filename='avatars/' + profile.avatar_path) }}" alt="Avatar del usuario">
+            </div>
+            {% endif %}
             <p><strong>Biografía:</strong> {{ profile.bio }}</p>
             <p><strong>Película Favorita:</strong> {{ profile.movie_title }}</p>
         </div>

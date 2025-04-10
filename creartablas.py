@@ -41,6 +41,7 @@ cur.execute("""
         user_id INTEGER,
         bio TEXT,
         movie_id INTEGER,
+        avatar_path TEXT,
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (movie_id) REFERENCES movie(id)
     )

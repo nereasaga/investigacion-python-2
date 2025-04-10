@@ -135,22 +135,39 @@ def get_all_movies():
     conn.close()
     return movies
 
-def update_profile(user_id, bio, movie_id):
+def update_profile(user_id, bio, movie_id, avatar_path=None):
     conn = get_db_connection()
     cursor = conn.cursor()
-    # Intentar actualizar primero
-    cursor.execute('''
-        UPDATE profile 
-        SET bio = ?, movie_id = ? 
-        WHERE user_id = ?
-    ''', (bio, movie_id, user_id))
     
-    # Si no se actualizó ninguna fila, insertar nuevo perfil
-    if cursor.rowcount == 0:
+    if avatar_path:
+        # Intentar actualizar con avatar
         cursor.execute('''
-            INSERT INTO profile (user_id, bio, movie_id)
-            VALUES (?, ?, ?)
-        ''', (user_id, bio, movie_id))
+            UPDATE profile 
+            SET bio = ?, movie_id = ?, avatar_path = ?
+            WHERE user_id = ?
+        ''', (bio, movie_id, avatar_path, user_id))
+        
+        # Si no se actualizó ninguna fila, insertar nuevo perfil
+        if cursor.rowcount == 0:
+            cursor.execute('''
+                INSERT INTO profile (user_id, bio, movie_id, avatar_path)
+                VALUES (?, ?, ?, ?)
+            ''', (user_id, bio, movie_id, avatar_path))
+    else:
+        # Actualizar sin modificar el avatar
+        cursor.execute('''
+            UPDATE profile 
+            SET bio = ?, movie_id = ?
+            WHERE user_id = ?
+        ''', (bio, movie_id, user_id))
+        
+        # Si no se actualizó ninguna fila, insertar nuevo perfil
+        if cursor.rowcount == 0:
+            cursor.execute('''
+                INSERT INTO profile (user_id, bio, movie_id)
+                VALUES (?, ?, ?)
+            ''', (user_id, bio, movie_id))
+    
     conn.commit()
     conn.close()
 

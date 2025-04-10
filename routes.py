@@ -1,9 +1,28 @@
 from flask import jsonify, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from models import get_user_by_email, get_users, get_user_by_id, add_user, update_user, del_user, del_user_by_email, get_user_by_username, get_profile_by_user_id, update_profile, get_all_movies
+import os
+from werkzeug.utils import secure_filename
 
 # Definir rutas
+
+
 def init_routes(app):
+    # Configuración para subida de archivos
+    UPLOAD_FOLDER = 'static/avatars'
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+    
+    # Asegurarse de que el directorio existe
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    
+    def allowed_file(filename):
+        return '.' in filename and \
+               filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+    @app.route('/')
+    def index():
+        return render_template('index.html')
+    
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'POST':
@@ -14,18 +33,14 @@ def init_routes(app):
             if user and user.password == password:  # En producción usar hash
                 login_user(user)
                 return redirect(url_for('index'))
-            flash('Usuario o contraseña incorrectos')
+            flash('Usuario o contraseña incorrectos', 'error')
         return render_template('login.html')
-
+    
     @app.route('/logout')
     @login_required
     def logout():
         logout_user()
         return redirect(url_for('index'))
-
-    @app.route('/')
-    def index():
-        return render_template('index.html')
 
     @app.route('/dashboard', methods=['GET', 'POST'])
     @login_required
@@ -33,8 +48,20 @@ def init_routes(app):
         if request.method == 'POST':
             bio = request.form.get('bio')
             movie_id = request.form.get('movie_id')
-            update_profile(current_user.id, bio, movie_id)
-            flash('Perfil actualizado exitosamente')
+            avatar_path = None
+            
+            # Procesar el archivo si fue enviado
+            if 'avatar' in request.files:
+                avatar = request.files['avatar']
+                if avatar and allowed_file(avatar.filename):
+                    # Crear nombre de archivo seguro
+                    filename = secure_filename(f"user_{current_user.id}_{avatar.filename}")
+                    # Guardar el archivo
+                    avatar.save(os.path.join(UPLOAD_FOLDER, filename))
+                    avatar_path = filename
+            
+            update_profile(current_user.id, bio, movie_id, avatar_path)
+            flash('Perfil actualizado exitosamente', 'success')  # Añadimos categoría 'success'
             return redirect(url_for('dashboard'))
 
         profile = get_profile_by_user_id(current_user.id)

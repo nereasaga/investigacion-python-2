@@ -113,11 +113,22 @@ label {
 }
 
 .alert {
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #f44336;
-    color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
     border-radius: 4px;
+}
+
+.alert-success {
+    color: #ffffff;
+    background-color:#1abd40;
+    border-color: #c3e6cb;
+}
+
+.alert-error {
+    color: #db3a4a;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }
 
 .profile-section {
@@ -171,4 +182,23 @@ label {
 .user-profile em {
     color: #666;
     font-style: italic;
+}
+
+.current-avatar {
+    margin: 10px 0;
+}
+
+.current-avatar img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.form-group input[type="file"] {
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
 }
