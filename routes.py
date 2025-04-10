@@ -1,8 +1,16 @@
-from flask import jsonify, request, render_template, redirect, url_for, flash
+from flask import jsonify, request, render_template, redirect, url_for, flash, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from models import get_user_by_email, get_users, get_user_by_id, add_user, update_user, del_user, del_user_by_email, get_user_by_username, get_profile_by_user_id, update_profile, get_all_movies
 import os
 from werkzeug.utils import secure_filename
+from functools import wraps
+from flask import request, render_template, g
+from time import time
+import logging
+
+# Configurar logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Definir rutas
 
@@ -150,3 +158,55 @@ def init_routes(app):
     @login_required
     def add_user_view():
         return render_template('add_user.html')
+
+    # Decorador personalizado para medir tiempo de ejecución
+    def medir_tiempo(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            inicio = time()
+            resultado = f(*args, **kwargs)
+            fin = time()
+            tiempo_total = fin - inicio
+            logger.info(f'La función {f.__name__} tardó {tiempo_total:.4f} segundos')
+            return resultado
+        return decorated_function
+
+    # Ejemplo de @app.before_request
+    @app.before_request
+    def antes_de_request():
+        g.inicio_request = time()
+        g.mensaje_before = "¡Esto se ejecutó antes del request!"
+
+    # Ejemplo de @app.after_request
+    @app.after_request
+    def despues_de_request(response):
+        if hasattr(g, 'inicio_request'):
+            tiempo_total = time() - g.inicio_request
+            response.headers['X-Tiempo-Ejecucion'] = str(tiempo_total)
+        return response
+
+    # Ejemplo de @app.errorhandler
+    @app.errorhandler(404)
+    def pagina_no_encontrada(error):
+        return render_template('error.html', 
+                             error_code=404, 
+                             mensaje="¡Ups! Página no encontrada"), 404
+
+    # Ruta que muestra ejemplos de decoradores
+    @app.route('/decoradores')
+    @medir_tiempo
+    def ejemplos_decoradores():
+        # Simulamos un error 404
+        mostrar_404 = request.args.get('error404', False)
+        if mostrar_404:
+            # Forma correcta de generar un error 404
+            abort(404)
+
+        # Datos para mostrar en la plantilla
+        datos = {
+            'mensaje_before': g.mensaje_before,
+            'tiempo_inicio': g.inicio_request,
+            'tiempo_actual': time()
+        }
+        
+        return render_template('decoradores.html', datos=datos)

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Ejemplos de Decoradores{% endblock %}
+
+{% block content %}
+    <h1>Ejemplos de Decoradores en Flask</h1>
+
+    <div class="decoradores-demo">
+        <h2>1. @app.before_request</h2>
+        <p>Este decorador se ejecuta antes de cada request.</p>
+        <div class="resultado">
+            <strong>Mensaje del before_request:</strong> {{ datos.mensaje_before }}
+        </div>
+
+        <h2>2. @app.after_request</h2>
+        <p>Este decorador se ejecuta después de cada request.</p>
+        <div class="resultado">
+            <strong>Tiempo de ejecución:</strong> 
+            {{ "%.4f"|format(datos.tiempo_actual - datos.tiempo_inicio) }} segundos
+            <br>
+            <small>(También se añade como header X-Tiempo-Ejecucion en la respuesta)</small>
+        </div>
+
+        <h2>3. @app.errorhandler(404)</h2>
+        <p>Este decorador maneja errores específicos.</p>
+        <div class="resultado">
+            <a href="?error404=true" class="button">Simular Error 404</a>
+        </div>
+
+        <h2>4. @medir_tiempo (Decorador personalizado)</h2>
+        <p>Este decorador personalizado mide el tiempo de ejecución de una función.</p>
+        <div class="resultado">
+            <strong>Resultado:</strong> Revisa la consola del servidor para ver el tiempo medido
+        </div>
+    </div>
+{% endblock %}
