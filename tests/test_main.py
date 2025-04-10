@@ -1,3 +1,4 @@
+import pytest
 from src.main import suma, is_greater_than
 
 def test_suma():
@@ -5,3 +6,37 @@ def test_suma():
 
 def test_is_greater_than():
     assert is_greater_than(10, 5) is True
+
+#ejemplo decorador
+
+@pytest.mark.parametrize(
+        "input_x,input_y,expected",
+        [
+            (5,1,6),
+            (6,suma(4,2),12),
+            (suma(19,1),15,35),
+            (-7,10,suma(-7,10)),
+
+        ]
+)
+
+def test_suma_params(input_x,input_y,expected):
+    assert suma (input_x,input_y) == expected
+
+#ejemplo login
+def login (username,password):
+    if ((username=="carla") and (password== "123456")):
+        return True
+    else:
+        return False
+    
+#ejemplo login pass y fails
+
+def test_login_pass():
+    login_passes=login("carla","123456")
+    assert login_passes
+
+def test_login_fail():
+    login_fails=login("carla1","1234567")
+    assert not login_fails
+     
