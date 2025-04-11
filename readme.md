@@ -98,13 +98,12 @@ Este proyecto implementa una API RESTful con Flask que permite gestionar usuario
 
 Además de las rutas API, también se implementan vistas para visualizar usuarios y perfiles a través de páginas web:
 
-    Vista de lista de usuarios: Muestra todos los usuarios registrados en la base de datos.
+### Vista de lista de usuarios
+Muestra todos los usuarios registrados en la base de datos.
 
-        Ruta: /users/view
-
-        Requiere autenticación mediante el decorador @login_required.
-
-        Usa la plantilla users.html para mostrar la lista de usuarios.
+- **Ruta**: `/users/view`
+- **Requiere autenticación** mediante el decorador `@login_required`.
+- **Usa la plantilla** `users.html` para mostrar la lista de usuarios.
 
         ```bash
 @app.route('/users/view')
@@ -115,13 +114,13 @@ def list_users_view():
 
 ```
 
-Vista de usuario individual: Muestra la información detallada de un usuario junto con su perfil.
+### Vista de usuario individual
+Muestra la información detallada de un usuario junto con su perfil.
 
-    Ruta: /users/view/<int:user_id>
+- **Ruta**: `/users/view/<int:user_id>`
+- **Requiere autenticación** mediante el decorador `@login_required`.
+- Si el usuario existe, se muestra su información y perfil en la plantilla `user_detail.html`. En caso contrario, redirige a la vista de lista de usuarios.
 
-    Requiere autenticación mediante el decorador @login_required.
-
-    Si el usuario existe, se muestra su información y perfil en la plantilla user_detail.html. En caso contrario, redirige a la vista de lista de usuarios.
 
    ```bash
 @app.route('/users/view/<int:user_id>')
@@ -138,27 +137,22 @@ def view_user(user_id):
 ## Pruebas con Pytest
 Este proyecto incluye pruebas automatizadas utilizando pytest para verificar el correcto funcionamiento de las funciones y las rutas. Se han creado los siguientes archivos de pruebas:
 
-    test_main.py: Contiene pruebas para las funciones básicas como suma y is_greater_than, así como un ejemplo de prueba con parámetros y validación de login:
+### test_main.py
+Contiene pruebas para las funciones básicas como suma y `is_greater_than`, así como un ejemplo de prueba con parámetros y validación de login:
 
-        test_suma(): Verifica que la función suma funciona correctamente.
+- **test_suma()**: Verifica que la función `suma` funciona correctamente.
+- **test_is_greater_than()**: Verifica que `is_greater_than` devuelva `True` si el primer número es mayor que el segundo.
+- **test_suma_params()**: Usa `pytest.mark.parametrize` para probar varias combinaciones de entrada en la función `suma`.
+- **test_login_pass()**: Verifica el login correcto.
+- **test_login_fail()**: Verifica el login fallido.
 
-        test_is_greater_than(): Verifica que is_greater_than devuelva True si el primer número es mayor que el segundo.
+### test_ejemplo.py
+Contiene pruebas para funciones matemáticas simples como suma, resta, multiplicación y división:
 
-        test_suma_params(): Usa pytest.mark.parametrize para probar varias combinaciones de entrada en la función suma.
-
-        test_login_pass(): Verifica el login correcto.
-
-        test_login_fail(): Verifica el login fallido.
-
-    test_ejemplo.py: Contiene pruebas para funciones matemáticas simples como suma, resta, multiplicación y división:
-
-        test_add(): Verifica que la función add devuelve el resultado correcto.
-
-        test_subtract(): Verifica que la función subtract funciona correctamente.
-
-        test_multiply(): Verifica que la función multiply multiplica correctamente.
-
-        test_divide(): Verifica que la función divide calcula correctamente, y lanza un error si se intenta dividir por cero.
+- **test_add()**: Verifica que la función `add` devuelve el resultado correcto.
+- **test_subtract()**: Verifica que la función `subtract` funciona correctamente.
+- **test_multiply()**: Verifica que la función `multiply` multiplica correctamente.
+- **test_divide()**: Verifica que la función `divide` calcula correctamente, y lanza un error si se intenta dividir por cero.
 
 Para ejecutar los tests:
 
