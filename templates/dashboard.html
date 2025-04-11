@@ -4,25 +4,55 @@
 
 {% block content %}
     <h1>Dashboard</h1>
-    <div class="dashboard-content">
-        <h2>Bienvenido, {{ current_user.username }}</h2>
-        
-        <div class="profile-section">
-            <h3>Tu Perfil</h3>
+    <div class="dashboard-container">
+        <!-- Sección de perfil actual -->
+        <div class="profile-header">
+            <div class="profile-avatar-large">
+                {% if profile and profile.avatar_path %}
+                    <img src="{{ url_for('static', filename='avatars/' + profile.avatar_path) }}" alt="Avatar actual">
+                {% else %}
+                    <div class="avatar-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="profile-name">
+                <h2>{{ current_user.username }}</h2>
+                <span class="profile-email">{{ current_user.email }}</span>
+            </div>
+        </div>
+
+        <!-- Información actual del perfil -->
+        <div class="current-profile-section">
+            <h3>Tu Perfil Actual</h3>
+            {% if profile %}
+                <div class="profile-info">
+                    <div class="info-item">
+                        <span class="info-label">Biografía:</span>
+                        <p class="info-value">{{ profile.bio if profile.bio else 'No has añadido una biografía aún' }}</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Película Favorita:</span>
+                        <p class="info-value">{{ profile.movie_title if profile.movie_title else 'No has seleccionado una película favorita' }}</p>
+                    </div>
+                </div>
+            {% else %}
+                <p class="no-profile">Aún no has completado tu perfil. Utiliza el formulario inferior para añadir información.</p>
+            {% endif %}
+        </div>
+
+        <!-- Formulario de actualización -->
+        <div class="update-profile-section">
+            <h3>Actualizar Perfil</h3>
             <form method="POST" class="profile-form" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="avatar">Avatar:</label>
+                    <label for="avatar">Cambiar Avatar:</label>
                     <input type="file" name="avatar" id="avatar" accept="image/*">
-                    {% if profile and profile.avatar_path %}
-                        <div class="current-avatar">
-                            <img src="{{ url_for('static', filename='avatars/' + profile.avatar_path) }}" alt="Avatar actual">
-                        </div>
-                    {% endif %}
                 </div>
                 
                 <div class="form-group">
                     <label for="bio">Biografía:</label>
-                    <textarea name="bio" id="bio" rows="4">{{ profile.bio if profile else '' }}</textarea>
+                    <textarea name="bio" id="bio" rows="4" placeholder="Cuéntanos sobre ti...">{{ profile.bio if profile else '' }}</textarea>
                 </div>
                 
                 <div class="form-group">
@@ -38,24 +68,8 @@
                     </select>
                 </div>
 
-                <button type="submit" class="button">Guardar Perfil</button>
+                <button type="submit" class="button">Actualizar Perfil</button>
             </form>
-        </div>
-
-        <div class="current-profile">
-            {% if profile %}
-                <h3>Tu Perfil Actual</h3>
-                <p><strong>Biografía:</strong> {{ profile.bio }}</p>
-                <p><strong>Película Favorita:</strong> {{ profile.movie_title }}</p>
-            {% endif %}
-        </div>
-
-        <div class="dashboard-actions">
-            <h3>Acciones Rápidas</h3>
-            <ul>
-                <li><a href="{{ url_for('list_users_view') }}">Ver lista de usuarios</a></li>
-                <li><a href="{{ url_for('add_user_view') }}">Añadir nuevo usuario</a></li>
-            </ul>
         </div>
     </div>
 {% endblock %}

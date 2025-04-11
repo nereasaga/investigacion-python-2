@@ -210,3 +210,15 @@ def init_routes(app):
         }
         
         return render_template('decoradores.html', datos=datos)
+
+    @app.before_request
+    def before_request():
+        if current_user.is_authenticated:
+            g.profile = get_profile_by_user_id(current_user.id)
+        else:
+            g.profile = None
+
+    # Modificar el contexto de todas las plantillas
+    @app.context_processor
+    def inject_profile():
+        return dict(profile=g.profile)
