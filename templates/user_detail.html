@@ -13,12 +13,20 @@
         <div class="user-profile">
             <h3>Perfil</h3>
             {% if profile.avatar_path %}
-            <div class="profile-avatar">
+            <div class="profile-avatar-large">
                 <img src="{{ url_for('static', filename='avatars/' + profile.avatar_path) }}" alt="Avatar del usuario">
             </div>
             {% endif %}
             <p><strong>Biografía:</strong> {{ profile.bio }}</p>
-            <p><strong>Película Favorita:</strong> {{ profile.movie_title }}</p>
+            <div class="favorite-movie">
+                <p><strong>Película Favorita:</strong> {{ profile.movie_title }}</p>
+                {% if profile.movie_image %}
+                <div class="movie-poster">
+                    <img src="{{ url_for('static', filename='movies/' + profile.movie_image) }}" 
+                         alt="Poster de {{ profile.movie_title }}">
+                </div>
+                {% endif %}
+            </div>
         </div>
         {% else %}
         <div class="user-profile">
