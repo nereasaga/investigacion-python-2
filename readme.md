@@ -94,12 +94,14 @@ Muestra todos los usuarios registrados en la base de datos.
 - **Ruta**: `/users/view`
 - **Requiere autenticación** mediante el decorador `@login_required`.
 - **Usa la plantilla** `users.html` para mostrar la lista de usuarios.
-
+  
+```bash
 @app.route('/users/view')
 @login_required
 def list_users_view():
     users = get_users()
     return render_template('users.html', users=users)
+```
 
 ### Vista de usuario individual
 Muestra la información detallada de un usuario junto con su perfil.
@@ -108,6 +110,7 @@ Muestra la información detallada de un usuario junto con su perfil.
 - **Requiere autenticación** mediante el decorador `@login_required`.
 - Si el usuario existe, se muestra su información y perfil en la plantilla `user_detail.html`. En caso contrario, redirige a la vista de lista de usuarios.
 
+```bash
 @app.route('/users/view/<int:user_id>')
 @login_required
 def view_user(user_id):
@@ -116,6 +119,7 @@ def view_user(user_id):
         profile = get_profile_by_user_id(user_id)  # Obtener el perfil del usuario
         return render_template('user_detail.html', user=user, profile=profile)
     return redirect(url_for('list_users_view'))
+```
 
 ## Pruebas con Pytest
 Este proyecto incluye pruebas automatizadas utilizando pytest para verificar el correcto funcionamiento de las funciones y las rutas. Se han creado los siguientes archivos de pruebas:
@@ -146,11 +150,12 @@ pip install pytest
 ```bash
 pytest -v
 ```
+| EQUIPO | FUNCIONES | DESARROLLO |
+|---------------------------------------|----------------------------------------|------------------------------|
+| [![Nerea]](https://github.com/nereasaga) | Nerea:Sqlite | Programador Jr. encargado de SQLITE. |
+| [![Carla]](https://github.com/carlasiles1) | Carla:testing| Programadora Jr. encargada de pytest y readme. |
+| [![Gaizka]](https://github.com/gaizkamg) | Gaizka: Scrum Máster| Programador Jr. Encargado del crud.|
+| [![Gaizka]](https://github.com/githpaco) Paco: Product Owner | Programador Jr. encargado de los decoradores.|
 
-## Contribuir
 
-1. Haz un Fork del proyecto
-2. Crea una rama para tu característica (`git checkout -b feature/AmazingFeature`)
-3. Haz commit de tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+
