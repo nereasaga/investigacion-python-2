@@ -60,40 +60,30 @@ python app.py
 ## API REST con Flask
 Este proyecto implementa una API RESTful con Flask que permite gestionar usuarios mediante peticiones HTTP y devuelve respuestas en formato JSON. Incluye funcionalidades CRUD completas, manejo de errores, decoradores personalizados y middleware para controlar tiempos de ejecución y contexto de plantillas.
 
-🚀 Funcionalidades principales
+🚀 **Funcionalidades principales**
 
-    🔍 Obtener todos los usuarios (GET /users)
+- 🔍 Obtener todos los usuarios (GET /users)
+- 🔍 Obtener usuario por ID (GET /users/<id>)
+- ➕ Crear nuevo usuario (POST /users)
+- ✏️ Actualizar usuario completamente (PUT /users/<id>)
+- 🛠️ Actualizar usuario parcialmente (PATCH /users/<id>)
+- 🗑️ Eliminar usuario por ID (DELETE /users/<id>)
+- 🗑️ Eliminar usuario por email (DELETE /users/email/<email>)
 
-    🔍 Obtener usuario por ID (GET /users/<id>)
+🧰 **Extras incluidos**
 
-    ➕ Crear nuevo usuario (POST /users)
+- Página web para añadir usuarios desde el navegador (GET /users/add)
+- Decorador personalizado `@medir_tiempo` para medir tiempo de ejecución de funciones
+- Middleware con `@before_request` y `@after_request` para registrar tiempos y modificar respuestas
+- Manejador de errores (`@app.errorhandler(404)`) con renderizado de plantilla personalizada
+- Inyección automática de datos del perfil de usuario en todas las plantillas mediante `@context_processor`
 
-    ✏️ Actualizar usuario completamente (PUT /users/<id>)
+🔐 **Autenticación y contexto**
 
-    🛠️ Actualizar usuario parcialmente (PATCH /users/<id>)
+- Soporte para `login_required` en rutas protegidas
+- Carga automática del perfil del usuario autenticado en cada request (`g.profile`)
 
-    🗑️ Eliminar usuario por ID (DELETE /users/<id>)
 
-    🗑️ Eliminar usuario por email (DELETE /users/email/<email>)
-
-🧰 Extras incluidos
-
-    Página web para añadir usuarios desde el navegador (GET /users/add)
-
-    Decorador personalizado @medir_tiempo para medir tiempo de ejecución de funciones
-
-    Middleware con @before_request y @after_request para registrar tiempos y modificar respuestas
-
-    Manejador de errores (@app.errorhandler(404)) con renderizado de plantilla personalizada
-
-    Inyección automática de datos del perfil de usuario en todas las plantillas mediante @context_processor
-
-🔐 Autenticación y contexto
-
-    Soporte para login_required en rutas protegidas
-
-    Carga automática del perfil del usuario autenticado en cada request (g.profile)
-    
 🖥️ Vistas HTML
 
 Además de las rutas API, también se implementan vistas para visualizar usuarios y perfiles a través de páginas web:
@@ -131,7 +121,6 @@ def view_user(user_id):
         profile = get_profile_by_user_id(user_id)  # Obtener el perfil del usuario
         return render_template('user_detail.html', user=user, profile=profile)
     return redirect(url_for('list_users_view'))
-
 ```
     
 ## Pruebas con Pytest
