@@ -95,14 +95,11 @@ Muestra todos los usuarios registrados en la base de datos.
 - **Requiere autenticación** mediante el decorador `@login_required`.
 - **Usa la plantilla** `users.html` para mostrar la lista de usuarios.
 
-        ```bash
 @app.route('/users/view')
 @login_required
 def list_users_view():
     users = get_users()
     return render_template('users.html', users=users)
-
-```
 
 ### Vista de usuario individual
 Muestra la información detallada de un usuario junto con su perfil.
@@ -111,8 +108,6 @@ Muestra la información detallada de un usuario junto con su perfil.
 - **Requiere autenticación** mediante el decorador `@login_required`.
 - Si el usuario existe, se muestra su información y perfil en la plantilla `user_detail.html`. En caso contrario, redirige a la vista de lista de usuarios.
 
-
-   ```bash
 @app.route('/users/view/<int:user_id>')
 @login_required
 def view_user(user_id):
@@ -121,8 +116,7 @@ def view_user(user_id):
         profile = get_profile_by_user_id(user_id)  # Obtener el perfil del usuario
         return render_template('user_detail.html', user=user, profile=profile)
     return redirect(url_for('list_users_view'))
-```
-    
+
 ## Pruebas con Pytest
 Este proyecto incluye pruebas automatizadas utilizando pytest para verificar el correcto funcionamiento de las funciones y las rutas. Se han creado los siguientes archivos de pruebas:
 
