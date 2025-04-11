@@ -39,7 +39,23 @@ pip install -r requirements.txt
 python creartablas.py
 ```
 
-4. Ejecuta la aplicación:
+4. Instala Flask:
+```bash
+pip install flask
+```
+5. Instala Flask-login:
+```bash
+pip install flask-login
+```
+6. Instala pytest:
+```bash
+pip install pytest
+```
+7. Verifica la instalación:
+```bash
+pip list
+```
+8. Ejecuta la aplicación:
 ```bash
 python app.py
 ```
