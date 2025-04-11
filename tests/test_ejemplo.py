@@ -1,4 +1,4 @@
-# test_ejemplo.py
+# test_ejemplo
 
 def add(x, y):
     return x + y
