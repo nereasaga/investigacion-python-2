@@ -23,8 +23,8 @@
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    <a href="{{ url_for('view_user', user_id=user.id) }}">Ver</a>
-                    <button data-user-id="{{ user.id }}" class="delete-btn">Eliminar</button>
+                    <a href="{{ url_for('view_user', user_id=user.id) }}" class="button">Ver</a>
+                    <button data-user-id="{{ user.id }}" class="button-del">Eliminar</button>
                 </td>
             </tr>
             {% endfor %}
@@ -33,7 +33,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.delete-btn').forEach(button => {
+            document.querySelectorAll('.button-del').forEach(button => {
                 button.addEventListener('click', function() {
                     const userId = this.getAttribute('data-user-id');
                     deleteUser(userId);

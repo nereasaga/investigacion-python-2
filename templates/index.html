@@ -5,10 +5,10 @@
 {% block content %}
     <h1>Bienvenido a la Gestión de Usuarios</h1>
     {% if current_user.is_authenticated %}
-        <p>Hola, {{ current_user.username }}!</p>
-        <p>Accede a tu <a href="{{ url_for('dashboard') }}">dashboard</a> para gestionar usuarios.</p>
+        <h2>Hola, {{ current_user.username }}!</h2>
+        <p>Accede a tu <a href="{{ url_for('dashboard') }}" class="button">dashboard</a> para gestionar usuarios.</p>
     {% else %}
-        <p>Esta es una aplicación para gestionar usuarios.</p>
-        <p><a href="{{ url_for('login') }}">Inicia sesión</a> para acceder a todas las funcionalidades.</p>
+        <p>Esta es una aplicación para gestionar usuarios. En ella puedes acceder a la lista, agregar nuevos usuarios, actualizar la bio, la foto de avatar, elegir la película favorita del usuario o borrar un usario.</p>
+        <p><a href="{{ url_for('login') }}" class="button">Inicia sesión</a> para acceder a todas las funcionalidades.</p>
     {% endif %}
 {% endblock %}
