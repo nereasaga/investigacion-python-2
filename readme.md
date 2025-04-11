@@ -155,7 +155,7 @@ pytest -v
 | [![Nerea]](https://github.com/nereasaga) | Nerea:Sqlite | Programador Jr. encargado de SQLITE. |
 | [![Carla]](https://github.com/carlasiles1) | Carla:testing| Programadora Jr. encargada de pytest y readme. |
 | [![Gaizka]](https://github.com/gaizkamg) | Gaizka: Scrum Máster| Programador Jr. Encargado del crud.|
-| [![Gaizka]](https://github.com/githpaco) Paco: Product Owner | Programador Jr. encargado de los decoradores.|
+| [![Gaizka]](https://github.com/githpaco) | Paco: Product Owner | Programador Jr. encargado de los decoradores.|
 
 
 
