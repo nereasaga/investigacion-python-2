@@ -157,6 +157,17 @@ Contiene pruebas para funciones matemáticas simples como suma, resta, multiplic
 - **test_multiply()**: Verifica que la función `multiply` multiplica correctamente.
 - **test_divide()**: Verifica que la función `divide` calcula correctamente, y lanza un error si se intenta dividir por cero.
 
+### test_login.py
+Verifica el correcto funcionamiento del inicio de sesión para todos los usuarios registrados en la base de datos:
+
+- Comprueba que existen usuarios en la base de datos.  
+- Valida que cada usuario existe y su email es correcto.  
+- Compara la contraseña introducida con la almacenada.  
+- Simula el login con `login_user` y comprueba que el usuario queda autenticado (`is_authenticated`).  
+
+Este test garantiza que el sistema de autenticación funciona correctamente para todos los usuarios registrados.
+
+
 Para ejecutar los tests:
 
 ```bash
