@@ -2,7 +2,7 @@ import sqlite3
 
 # Crear una conexión a la base de datos SQLite
 # Si la base de datos no existe, se crea una nueva
-con = sqlite3.connect("tutorial.db")
+con = sqlite3.connect("./SQLite/tutorial.db")
 
 # Crear un cursor
 # Un cursor es un objeto que permite ejecutar comandos SQL y recuperar resultados
