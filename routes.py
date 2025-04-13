@@ -7,6 +7,7 @@ from functools import wraps
 from flask import request, render_template, g
 from time import time
 import logging
+from limite_peticiones import limite_peticiones
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -182,7 +183,7 @@ def init_routes(app):
     def despues_de_request(response):
         if hasattr(g, 'inicio_request'):
             tiempo_total = time() - g.inicio_request
-            response.headers['X-Tiempo-Ejecucion'] = str(tiempo_total)
+            response.headers['X-Tiempo-Ejecución de after_request'] = str(tiempo_total)
         return response
 
     # Ejemplo de @app.errorhandler
@@ -211,6 +212,16 @@ def init_routes(app):
         
         return render_template('decoradores.html', datos=datos)
 
+    #decorador para limitar nº de peticviones al endpoint recurso-limitado
+    @app.route('/recurso-limitado')
+    @limite_peticiones(max_peticiones=5, periodo=60)
+    def recurso_limitado():
+        # Renderizamos una plantilla que extiende de base.html
+        return render_template('recurso_limitado.html')
+    
+
+
+    #Obtener profile
     @app.before_request
     def before_request():
         if current_user.is_authenticated:

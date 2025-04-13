@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -17,6 +18,7 @@
                 {% if current_user.is_authenticated %}
                     <a href="{{ url_for('list_users_view') }}" class="{{ 'active' if request.endpoint == 'list_users_view' }}">Usuarios</a>
                     <a href="{{ url_for('ejemplos_decoradores') }}" class="{{ 'active' if request.endpoint == 'ejemplos_decoradores' }}">Ejemplos Decoradores</a>
+                    <a href="{{ url_for('recurso_limitado') }}" class="{{ 'active' if request.endpoint == 'recurso_limitado' }}">Recurso limitado</a>
                 {% endif %}
             </div>
             

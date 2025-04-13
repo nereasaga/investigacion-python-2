@@ -3,6 +3,7 @@
 Env/
 venv/
 ENV/
+.venv/
 
 # Base de datos SQLite
 *.db

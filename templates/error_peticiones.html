@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Error - Demasiadas Peticiones{% endblock %}
+
+{% block content %}
+  <div>
+    <h4>¡Ups!</h4>
+    <p>{{ mensaje }}</p>
+    <hr>
+    <p>Espera un momento y vuelve a intentarlo.</p>
+  </div>
+{% endblock %}
