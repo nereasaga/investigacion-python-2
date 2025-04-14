@@ -5,9 +5,9 @@ venv/
 ENV/
 .venv/
 
-# Base de datos SQLite
-*.db
-*.db-journal
+# # Base de datos SQLite
+# *.db
+# *.db-journal
 
 # Python
 __pycache__/
