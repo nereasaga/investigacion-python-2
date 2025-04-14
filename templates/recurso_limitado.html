@@ -5,5 +5,16 @@
 {% block content %}
 
 <h1>Recurso Limitado</h1>
-    <p>Este es un recurso protegido con una cuota de peticiones (rate limiting). Disfruta navegando, pero recuerda que las peticiones están limitadas a 5 por minuto.</p>
+    <p>Este es un recurso protegido con una cuota de peticiones (rate limiting). 
+        Disfruta navegando, pero recuerda que las peticiones están limitadas a 5 por minuto.</p>
+     <img class="movie-poster" src="static/movies/montypython/and-now-something-completely-different.jpg">  
+     
+     <a href="{{ url_for('recurso_limitado') }}" id="reloadButton" class="button">Recargar</a>
+
+     <script>
+         document.getElementById('reloadButton').addEventListener('click', function(e) {
+             e.preventDefault();
+             window.location.reload();
+         });
+     </script>
 {% endblock %}
