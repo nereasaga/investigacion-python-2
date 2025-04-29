@@ -15,7 +15,7 @@ if not app.secret_key:
     raise ValueError("SECRET_KEY no está configurada. Configúrala como variable de entorno.")
 
 login_manager = LoginManager() 
-login_manager.init_app(app)
+login_manager.init_app(app) 
 login_manager.login_view = 'login'  # Nombre de la vista de login
 
 @login_manager.user_loader

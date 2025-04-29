@@ -1,5 +1,5 @@
 # Importar bibliotecas
-
+import sqlite3
 from flask_login import UserMixin
 
 # Definir la tabla a la que conectar
