@@ -11,10 +11,11 @@ from limite_peticiones import limite_peticiones
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
+filename='app.log',
+format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 logger = logging.getLogger(__name__)
 
 # Definir rutas
-
 
 def init_routes(app):
     # Configuración para subida de archivos
