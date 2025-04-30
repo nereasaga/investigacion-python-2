@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 # Carga las variables del archivo .env (hay que tener instalado python-dotenv)
-load_dotenv()  
+load_dotenv()
 app.secret_key = os.getenv('SECRET_KEY')
 if not app.secret_key:
     raise ValueError("SECRET_KEY no está configurada. Configúrala como variable de entorno.")

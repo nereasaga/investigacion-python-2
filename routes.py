@@ -9,7 +9,7 @@ from time import time
 import logging
 from limite_peticiones import limite_peticiones
 
-# Configurar logging
+# Configurar logging para recoger errores
 logging.basicConfig(level=logging.INFO)
 filename='app.log',
 format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
